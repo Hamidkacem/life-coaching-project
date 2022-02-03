@@ -35,4 +35,14 @@ var create = function(data, callback) {
   });
 };
 
-module.exports = {create, selectAll, Item};
+var findOneAndDelete = function (id, callback) {
+  Item.findByIdAndDelete(id, function(err, data){
+    if(err) {
+      callback(err, null);
+    } else {
+      callback(null, data);
+    }
+  })
+}
+
+module.exports = {create, findOneAndDelete ,selectAll, Item};

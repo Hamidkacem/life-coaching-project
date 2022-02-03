@@ -30,6 +30,19 @@ app.post('/PostBlogs', (req, res) => {
   })
 })
 
+app.delete('/removeBlogs/:id', function(req,res){
+  let id=req.params.id
+  console.log(id);
+  items.deleteOne({_id: id}, (err,result)=>{
+    if(err){
+      console.log(err);
+    } else {
+      res.send("deleted");
+    }
+  })
+})
+
+
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });

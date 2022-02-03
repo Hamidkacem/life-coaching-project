@@ -1,23 +1,34 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
-// var items = require('../database-mongo');
+var items = require('../database-mongo');
 
 var app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false}))
 
 app.use(express.static(__dirname + '/../react-client/dist'));
 
 
-app.get('/items', function (req, res) {
+app.get('/PostBlogs', function (req, res) {
   items.selectAll(function(err, data) {
     if(err) {
-      res.sendStatus(500);
+      res.status(500);
     } else {
       res.json(data);
     }
   });
 });
+
+app.post('/PostBlogs', (req, res) => {
+  console.log(req.body)
+  items.create(req.body, (err,success)=>{
+    if(err){
+      console.error(err)
+    }
+    else{
+      res.send(success)
+    }
+  })
+})
 
 app.listen(3000, function() {
   console.log('listening on port 3000!');

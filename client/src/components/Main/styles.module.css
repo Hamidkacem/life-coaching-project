@@ -12,6 +12,11 @@
 	font-size: 25px;
 	margin-left: 20px;
 }
+.navbar li {
+	color : white;
+	font-size: 25px;
+
+}
 
 .white_btn {
 	border: none;

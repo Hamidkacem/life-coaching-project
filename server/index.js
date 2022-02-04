@@ -1,25 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-// UNCOMMENT THE DATABASE YOU'D LIKE TO USE
-// var items = require('../database-mysql');
-// var items = require('../database-mongo');
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const connection = require("./db");
+const userRoutes = require("./routes/users");
+const authRoutes = require("./routes/auth");
+// database connection
+connection();
+// middlewares
+app.use(express.json());
+app.use(cors());
+// routes
+app.use("/api/users", userRoutes);
+app.use("/api/auth", authRoutes);
 
-var app = express();
 
-app.use(express.static(__dirname + '/../react-client/dist'));
-
-
-app.get('/items', function (req, res) {
-  items.selectAll(function(err, data) {
-    if(err) {
-      res.sendStatus(500);
-    } else {
-      res.json(data);
-    }
-  });
-});
-
-app.listen(3000, function() {
-  console.log('listening on port 3000!');
-});
-
+const port =  3000;
+app.listen(port, console.log("Listening on port","http://localhost:3000",port));

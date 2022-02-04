@@ -8,9 +8,9 @@ function App() {
 
 	return (
 		<Routes>
-			{ <Route path="/" exact element={<Main />} />}
+			{ <Route path="/login" exact element={<Main />} />}
 			<Route path="/signup" exact element={<Signup />} />
-			<Route path="/login" exact element={<Login />} />
+			<Route path="/" exact element={<Login />} />
 			<Route path="/" element={<Navigate replace to="/login" />} />
 		</Routes>
 	);

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import styles from "./styles.module.css";
 
 const Login = () => {
 	const [data, setData] = useState({ email: "", password: "" });
 	const [error, setError] = useState("");
-
+    
+	const navigate = useNavigate();
 	const handleChange = ({ currentTarget: input }) => {
 		setData({ ...data, [input.name]: input.value });
 		console.log(data)
@@ -14,19 +15,20 @@ const Login = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		try {
-			const url = "http://localhost:3000/api/auth";
-			const { data: res } = await axios.post(url, data);
-			window.location = "/";
-		} catch (error) {
-			if (
-				error.response &&
-				error.response.status >= 400 &&
-				error.response.status <= 500
-			) {
-				setError(error.response.data.message);
-			}
-		}
+		// try {
+			
+		// 	const url = "http://localhost:3000/api/auth";
+		// 	const { data: res } = await axios.post(url, data);
+			navigate("/login");
+		// } catch (error) {
+		// 	if (
+		// 		error.response &&
+		// 		error.response.status >= 400 &&
+		// 		error.response.status <= 500
+		// 	) {
+		// 		setError(error.response.data.message);
+		// 	}
+		// }
 	};
 
 	return (
@@ -54,9 +56,11 @@ const Login = () => {
 							className={styles.input}
 						/>
 						{error && <div className={styles.error_msg}>{error}</div>}
+						
 						<button type="submit" className={styles.green_btn}>
 							Sing In
 						</button>
+					
 					</form>
 				</div>
 				<div className={styles.right}>
